@@ -58,6 +58,11 @@ a.nav {
 	font-weight: 600;
 	font-size: 18px;
 	margin: 0 20px;
+	border-bottom: 2px solid transparent;
+}
+
+a:hover {
+	border-bottom: 2px solid white;
 }
 
 li {
@@ -68,4 +73,45 @@ li {
 
 img {
 	margin: 40px 8px;
+}
+
+footer {
+	padding: 20px 0;
+	background-color: #0D2C40;
+	color: white;
+	font-size: 14px;
+	letter-spacing: .08em;
+	font-weight: 500;
+}
+
+.copyright {
+	font-family: "Raleway", sans-serif;
+	float: left;
+	margin-left: 40px;
+	text-transform: uppercase;
+}
+
+.message {
+	font-family: "Raleway", sans-serif;
+	float: right;
+	margin-right: 40px;
+	text-transform: uppercase;
+}
+
+.heart {
+	color: red;
+}
+
+.name {
+	color: #F15B31;
+	font-weight: 700;
+}
+
+.clearfix:after {
+	visibility: hidden;
+	display: block;
+	content: " ";
+	clear: both;
+	height: 0;
+	font-size: 0;
 }

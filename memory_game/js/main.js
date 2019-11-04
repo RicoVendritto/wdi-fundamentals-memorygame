@@ -1,43 +1,121 @@
-
 let cards = [
 	{
 		rank: "queen",
 		suit: "hearts",
-		cardImage: "/images/queen-of-hearts.png"
+		cardImage: "images/queen-of-hearts.png"
 	}, {
 		rank: "queen",
 		suit: "diamonds",
-		cardImage: "/images/queen-of-diamonds.png"
+		cardImage: "images/queen-of-diamonds.png"
 	}, {
 		rank: "king",
 		suit: "hearts",
-		cardImage: "/images/king-of-hearts.png"
+		cardImage: "images/king-of-hearts.png"
 	}, {
 		rank: "king",
 		suit: "diamonds",
-		cardImage: "/images/king-of-diamonds.png"
+		cardImage: "images/king-of-diamonds.png"
 	}
 ];
-
 let cardsInPlay = [];
+let controlArray = [];
 
-let checkForMatch = () => {
-	if (cardsInPlay.length === 2) {
-		if (cardsInPlay[0] === cardsInPlay[1]) {
-		console.log("You Found A Match!");
-		} else {
-		console.log("Sorry Mate! Try Again!");
-		}
+let resetCardsInPlay = () => {
+	cardsInPlay = [];
+}
+
+let resetControlArray = () => {
+	controlArray = [];
+}
+
+let checkControl = () => {
+	if (controlArray[0] === controlArray[1]) {
+		alert("Please select another card");
+		controlArray.pop();
+		cardsInPlay.pop();
+	} else if (cardsInPlay.length > 2) {
+		alert("A new game will be created");
+		resetBoard();
+		resetCardsInPlay();
+		resetControlArray();
+	} else {
+		setTimeout(checkForMatch, 100); //This solved below issues, decreased timeout from 500ms to 100ms
 	}
 }
 
-let flipCard = (cardId) => {
+//Sometimes the browser executes this function twice with the same set of cards and increases the score with 2 points instead of 1 -> I cannot figure out why. 
+//Only tested with Chrome. I suspect it has to do with the delay function.
+let checkForMatch = () => {
+	if (cardsInPlay.length === 2) {
+		if (cardsInPlay[0] === cardsInPlay[1]) {
+			alert("You Found A Match!");
+			increaseScore();
+		} else {
+			alert("Sorry Mate! Try Again!");
+		}
+	} 
+}
+
+function flipCard() {
+	let cardId = this.getAttribute("data");
+	//console.log(cardId);
+	this.setAttribute("src", cards[cardId].cardImage);
+	console.log(`User flipped ${cards[cardId].rank}`);
+	cardsInPlay.push(cards[cardId].rank);
+	controlArray.push(cards[cardId].cardImage);
+	console.log(cards[cardId].cardImage);
+	console.log(cards[cardId].suit);
+	checkControl();
+	//setTimeout(checkControl, 500); //included delay as I want the card to flip before the alert
+}
+
+//Please explain why this type of function does not work with the 'this' getAttribute function
+/*
+let flipCard = () => {
+	let cardId = this.getAttribute("data");
+	console.log(cardId);
 	console.log(`User flipped ${cards[cardId].rank}`);
 	cardsInPlay.push(cards[cardId].rank);
 	console.log(cards[cardId].cardImage);
 	console.log(cards[cardId].suit);
-	checkForMatch();	
+	setTimeout(checkForMatch, 500); //included delay as I want the card to flip before the alert	
+}
+*/
+
+let resetBoard = () => {
+	let nodes = document.getElementsByClassName("cards");
+	for (i = 0; i < nodes.length; i++) {
+		nodes[i].setAttribute("src", "images/back.png");
+	}
+	resetCardsInPlay();
+	resetControlArray();
+
 }
 
-flipCard(0);
-flipCard(2);
+let resetScore = () => {
+	resetBoard();
+	document.getElementById("score").value = "";
+	resetCardsInPlay();
+	resetControlArray();
+}
+
+let increaseScore = () => {
+	let field = document.getElementById("score");
+	let score = +field.value;
+	field.value = score + 1;
+}
+
+let createBoard = () => {
+	for (i = 0; i < cards.length; i++) {
+		let cardElement = document.createElement("img");
+		cardElement.setAttribute("src", "images/back.png");
+		cardElement.setAttribute("data", i);
+		cardElement.addEventListener("click", flipCard);
+		cardElement.setAttribute("class", "cards");
+		document.getElementById("game-board").appendChild(cardElement);
+	}
+}
+
+createBoard();
+document.getElementById("next").onclick = resetBoard;
+document.getElementById("clear").onclick = resetScore;

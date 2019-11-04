@@ -115,3 +115,14 @@ footer {
 	height: 0;
 	font-size: 0;
 }
+
+.output {
+	border: 1px solid black;
+	width: 50px;
+	color: #FFFFFF;
+	background-color: #F15B31;
+}
+
+#score {
+	text-align: center;
+}

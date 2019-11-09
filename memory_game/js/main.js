@@ -56,6 +56,7 @@ let checkForMatch = () => {
 	} 
 }
 
+
 function flipCard() {
 	let cardId = this.getAttribute("data");
 	//console.log(cardId);
@@ -69,16 +70,22 @@ function flipCard() {
 	//setTimeout(checkControl, 500); //included delay as I want the card to flip before the alert
 }
 
+
 //Please explain why this type of function does not work with the 'this' getAttribute function
+/*main.js:77 Uncaught TypeError: this.getAttribute is not a function
+    at HTMLImageElement.flipCard (main.js:77)*/
 /*
 let flipCard = () => {
 	let cardId = this.getAttribute("data");
-	console.log(cardId);
+	//console.log(cardId);
+	this.setAttribute("src", cards[cardId].cardImage);
 	console.log(`User flipped ${cards[cardId].rank}`);
 	cardsInPlay.push(cards[cardId].rank);
+	controlArray.push(cards[cardId].cardImage);
 	console.log(cards[cardId].cardImage);
 	console.log(cards[cardId].suit);
-	setTimeout(checkForMatch, 500); //included delay as I want the card to flip before the alert	
+	checkControl();
+	//setTimeout(checkControl, 500); //included delay as I want the card to flip before the alert
 }
 */
 

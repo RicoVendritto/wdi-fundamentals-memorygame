@@ -119,6 +119,8 @@ let createBoard = () => {
 		cardElement.setAttribute("data", i);
 		cardElement.addEventListener("click", flipCard);
 		cardElement.setAttribute("class", "cards");
+		cardElement.setAttribute("title", "playcard");
+		cardElement.setAttribute("alt", "playcar");
 		document.getElementById("game-board").appendChild(cardElement);
 	}
 }

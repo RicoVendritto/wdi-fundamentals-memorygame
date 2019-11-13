@@ -28,6 +28,8 @@ let resetControlArray = () => {
 	controlArray = [];
 }
 
+let cardFlipSound = new Audio("resources/cardflip.wav");
+
 let checkControl = () => {
 	if (controlArray[0] === controlArray[1]) {
 		alert("Please select another card");
@@ -46,6 +48,7 @@ let checkControl = () => {
 //Sometimes the browser executes this function twice with the same set of cards and increases the score with 2 points instead of 1 -> I cannot figure out why. 
 //Only tested with Chrome. I suspect it has to do with the delay function.
 let checkForMatch = () => {
+	cardFlipSound.play();
 	if (cardsInPlay.length === 2) {
 		if (cardsInPlay[0] === cardsInPlay[1]) {
 			alert("You Found A Match!");

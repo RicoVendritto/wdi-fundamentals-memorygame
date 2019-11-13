@@ -28,6 +28,8 @@ let resetControlArray = () => {
 	controlArray = [];
 }
 
+//Sound effect created with the assistance of repl.it user: -Aloeb83 at: https://repl.it/talk/learn/Coin-Flipper-with-Sound-using-HTML-and-JavaScript/8003
+//Soujd effect is royalty free download from Freesound.org  user: f4ngy at: https://freesound.org/people/f4ngy/sounds/240776/
 let cardFlipSound = new Audio("resources/cardflip.wav");
 
 let checkControl = () => {
